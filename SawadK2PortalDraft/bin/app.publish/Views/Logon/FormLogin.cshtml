@@ -1,0 +1,80 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Logon</title>
+    <link href="~/Content/Logon.css" rel="stylesheet" />
+
+    @section Scripts
+    {
+        <script>
+            $(".toggle").on("click", function () {
+                $(".container").stop().addClass("active");
+            });
+
+            $(".close").on("click", function () {
+                $(".container").stop().removeClass("active");
+            });
+
+        </script>
+    }
+
+
+</head>
+<body>
+    <div class="pen-title">
+        <h1>Srisawad K2 Portal</h1>
+        <h2>Login Page</h2>
+        <span>Developed by<i class='fa fa-code'></i> by <a href=''>Development Section</a></span>
+    </div>
+    @using (Html.BeginForm())
+    {
+        <div class="container">
+            <div class="card"></div>
+            <div class="card">
+                <h1 class="title">Login</h1>
+                <form>
+                    <div class="input-container">
+                        <input type="text" id="#{label}" name="Username" required="required" />
+                        <label for="#{label}">Username</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="#{label}" name="Password" required="required" />
+                        <label for="#{label}">Password</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+                        <button><span>Log in</span></button>
+                    </div>
+                    <div class="footer">
+                        @*<label name="WrongPassword" >รหัสผ่านไม่ถูกต้อง</label>*@
+                        @*<a href="forgotpassword">Forgot your password?</a>*@
+                    </div>
+                </form>
+            </div>
+            @if (ViewBag.Message != null)
+            {
+                <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+                </script>
+
+            }
+
+        </div>
+
+
+
+    }
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿
+
+@using NonFactors.Mvc.Grid;
+
+
+
+@{
+    ViewBag.Title = "All Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+@model SawadK2PortalDraft.Models.TaskListModel
+
+<style>
+    /* Target the header cells */
+    .mvc-grid th {
+        text-align: center;
+    }
+
+    .centered-column {
+        text-align: center;
+    }
+</style>
+
+
+
+<div class="row m-0">
+    <h2>เอกสารทั้งหมดที่เคยดำเนินการ (All Document)</h2>
+    <center>
+        @(Html
+    .Grid(Model.AllTaskList)
+    .Build(columns =>
+    {
+
+        columns.Add(model => model.DocNo).Titled("หมายเลขเอกสาร");
+        columns.Add(model => model.FormSubject).Titled("เรื่อง");
+        columns.Add(model => model.dtmCreated).Titled("วันที่สร้างเอกสาร").Formatted("{0:dd/MM/yyyy hh:mm}").Sortable(true);
+        columns.Add(model => model.ReqEmpName).Titled("ชื่อผู้สร้างเอกสาร");
+        columns.Add(model => model.SystemName).Titled("ระบบ");
+        columns.Add(model => model.FormStatus).Titled("สถานะเอกสาร");
+
+        columns.Add(model => " <a href=\"" + model.LinkForm + "\" class=\"btn btn-primary\" target=\"_blank\">Link</a>").Encoded(false).Titled("เปิดเอกสาร").Filterable(false).Css("centered-column");
+        //columns.Add(model => model.LinkForm).Titled("LinkForm");
+        //columns.Add(model => model.LinkFlow).Titled("LinkFlow");
+        // columns.Add(model => model.dtmCreated).Titled("dtmCreated").Formatted("{0:d}");
+
+    })
+    .Empty("No data found")
+    .Filterable(GridFilterType.Single)
+    .Pageable(pager =>
+    {
+
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 5;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 2;
+    })
+)
+
+    </center>
+</div>
+
+
+
+
+@ViewBag.Alert

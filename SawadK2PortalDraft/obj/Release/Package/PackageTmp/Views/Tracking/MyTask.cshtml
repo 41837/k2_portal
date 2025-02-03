@@ -1,0 +1,64 @@
+﻿
+
+@using NonFactors.Mvc.Grid;
+
+
+
+@{
+    ViewBag.Title = "My Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+@model SawadK2PortalDraft.Models.TaskListModel
+
+<style>
+    /* Target the header cells */
+    .mvc-grid th {
+        text-align: center;
+    }
+
+    .centered-column {
+        text-align: center;
+    }
+</style>
+
+
+<div class="row m-0">
+    <h2>เอกสารรอดำเนินการ (My Document)</h2>
+    <center>
+        @(Html
+    .Grid(Model.MyTaskList)
+    .Build(columns =>
+    {
+
+    columns.Add(model => model.DocName).Titled("ชื่อเอกสาร");
+    columns.Add(model => model.SystemName).Titled("ระบบ");
+    columns.Add(model => model.ReceiveDate).Titled("วันที่สร้างเอกสาร").Formatted("{0:dd/MM/yyyy HH:mm}").Sortable(true);
+    columns.Add(model => " <a href=\"" + model.K2Link + "\" class=\"btn btn-primary\" target=\"_blank\">Link</a>").Encoded(false).Titled("เปิดเอกสาร").Css("centered-column");
+
+
+
+       //columns.Add(model => model.dtmCreated).Titled("dtmCreated").Formatted("{0:d}");
+
+    })
+    .Empty("No data found")
+    .Filterable(GridFilterType.Single)
+    .Pageable(pager =>
+    {
+
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 5;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 2;
+    })
+)
+
+    </center>
+</div>
+
+
+
+@ViewBag.Alert

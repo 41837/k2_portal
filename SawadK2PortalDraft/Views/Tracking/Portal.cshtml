@@ -1,0 +1,87 @@
+﻿
+
+@using NonFactors.Mvc.Grid;
+
+
+
+@{
+    ViewBag.Title = "Portal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+@*@model SawadK2PortalDraft.Models.DataTablesViewModel*@
+@model SawadK2PortalDraft.Models.TaskListModel
+
+
+
+
+<div class="row m-0">
+    <h1>เอกสารรอดำเนินการ (My Document)</h1>
+    <center>
+        @(Html
+    .Grid(Model.MyTaskList)
+    .Build(columns =>
+    {
+    columns.Add(model => model.DocName).Titled("ชื่อเอกสาร");
+    columns.Add(model => model.SystemName).Titled("ระบบ");
+    columns.Add(model => model.ReceiveDate).Titled("วันที่สร้างเอกสาร");
+    columns.Add(model => " <a href=\"" + model.K2Link + "\" class=\"btn btn-primary\" target=\"_blank\">Link</a>").Encoded(false).Titled("เปิดเอกสาร");
+
+
+
+       //columns.Add(model => model.dtmCreated).Titled("dtmCreated").Formatted("{0:d}");
+
+    })
+    .Empty("No data found")
+    .Filterable(GridFilterType.Single)
+    .Pageable(pager =>
+    {
+
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 5;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 2;
+    })
+)
+
+    </center>
+</div>
+
+<div class="row m-0">
+    <h1>All Document (VIEW ONLY)</h1>
+    <center>
+        @(Html
+    .Grid(Model.AllTaskList)
+    .Build(columns =>
+    {
+        columns.Add(model => model.DocNo).Titled("DocNo");
+        columns.Add(model => model.FormSubject).Titled("FormSubject");
+        columns.Add(model => model.ReqCreateDate).Titled("ReqCreateDate");
+        columns.Add(model => model.ReqEmpName).Titled("ReqEmpName");
+        columns.Add(model => model.FormStatus).Titled("FormStatus");
+
+
+        columns.Add(model => " <a href=\"" + model.LinkForm + "\" class=\"btn btn-primary\" target=\"_blank\">Link</a>").Encoded(false).Titled("FormLink");
+        //columns.Add(model => model.LinkForm).Titled("LinkForm");
+        //columns.Add(model => model.LinkFlow).Titled("LinkFlow");
+        columns.Add(model => model.dtmCreated).Titled("dtmCreated").Formatted("{0:d}");
+
+    })
+    .Empty("No data found")
+    .Filterable(GridFilterType.Single)
+    .Pageable(pager =>
+    {
+
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 5;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 2;
+    })
+)
+
+    </center>
+</div>
+
+@ViewBag.Alert
