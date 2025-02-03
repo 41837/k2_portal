@@ -1,0 +1,27 @@
+﻿
+@using SawadK2PortalDraft.Models
+@model List<SawadK2PortalDraft.Models.MenuList>
+
+@{
+    Layout = null;
+}
+
+@{
+    foreach (var item in Model.Where(w => w.MenuLevel == 1).OrderBy(o => o.MenuOrder).ToList())
+    {
+        <a class="nav-link collapsed" href="@item.UrlDev" data-bs-toggle="collapse" data-bs-target="#Slide_@item.MenuID" aria-expanded="false" aria-controls="collapseLayouts">
+            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+            @item.MenuNameEN
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="Slide_@item.MenuID" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                @foreach (var item2 in Model.Where(w => w.ParentID == item.MenuID).OrderBy(o => o.MenuOrder).ToList())
+                {
+                    <a class="nav-link" href="@item2.UrlDev" target="_blank">@item2.MenuNameTH</a>
+                }
+            </nav>
+        </div>
+
+    }
+}
